@@ -31,6 +31,7 @@ StyleMatch AI es un proyecto académico de armario digital inteligente que busca
 - [Organización del armario digital Fashionism-Machine-Learning.](https://github.com/Fashionism-Bangkit-Capstone/Fashionism-Machine-Learning)
 - [Recomendación de outfits a partir de una prenda seleccionada DeepFashion2.](https://github.com/switchablenorms/deepfashion2)
 - [Modelo pre entrenado fashion-Clip](https://github.com/patrickjohncyh/fashion-clip)
+- [Modelo experimental](https://github.com/lzcn/outfit-recommendation)
 
 ## Instalación
 
