@@ -47,3 +47,5 @@ La aplicación se ejecuta localmente en `http://127.0.0.1:8000/`.
 ## Estado del proyecto
 
 En desarrollo. Primera fase de implementación de StyleMatch AI.
+
+- [Tablero en Notion (unicamente para el equipo de trabajo)](https://app.notion.com/p/dd6c1deb16af4af0b68c611898c135fa?v=42056935f0f54eee80f9b86972098bec)
