@@ -1,0 +1,463 @@
+
+:root {
+  --texto: #241339;
+  --morado: #7745c9;
+  --morado-claro: #a77ee1;
+  --borde: #eadffb;
+  --rosa: #fff0f6;
+  --fondo: #fffefe;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--texto);
+  background: var(--fondo);
+}
+
+.barra {
+  height: 82px;
+  border-bottom: 1px solid #eee6f8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(4vw, 26px);
+  background: white;
+}
+
+.marca,
+.iconos-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.marca-icono {
+  width: 55px;
+  height: 55px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #eed9f8;
+}
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.marca-icono svg {
+  width: 38px;
+  height: 38px;
+  color: #622fac;
+}
+
+.marca strong {
+  font-size: 28px;
+  white-space: nowrap;
+}
+
+.marca strong span {
+  color: var(--morado);
+}
+
+.separador {
+  height: 28px;
+  width: 1px;
+  background: #ded2ed;
+  margin: 0 8px;
+}
+
+.nombre-pagina {
+  font-size: 19px;
+  color: #50416d;
+}
+
+.iconos-cabecera svg {
+  width: 28px;
+  height: 28px;
+  color: #593583;
+}
+
+.contenedor {
+  max-width: 1350px;
+  padding: 38px 32px 64px;
+  margin: 0 auto;
+}
+
+.introduccion {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  margin-bottom: 35px;
+}
+
+.icono-camiseta {
+  flex: 0 0 74px;
+  height: 74px;
+  border-radius: 17px;
+  background: #fce9f3;
+  display: grid;
+  place-items: center;
+}
+
+.icono-camiseta svg {
+  height: 43px;
+  width: 43px;
+  color: #a43aab;
+}
+
+h1 {
+  font-size: clamp(28px, 3vw, 38px);
+  margin: 0 0 8px;
+}
+
+.introduccion p {
+  font-size: 18px;
+  max-width: 850px;
+  line-height: 1.6;
+  margin: 0;
+  color: #55426f;
+}
+
+.cuadricula {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.tarjeta {
+  border: 1px solid var(--borde);
+  border-radius: 22px;
+  padding: 28px;
+  background: #fdfaff;
+  box-shadow: 0 3px 18px #6c399107;
+}
+
+h2 {
+  font-size: 24px;
+  margin: 0 0 24px;
+}
+
+.zona-carga {
+  min-height: 342px;
+  border: 2px dashed #cdb2f4;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 24px;
+  text-align: center;
+  background: #fcf9ff;
+  transition: background .2s;
+}
+
+.zona-carga.arrastrando {
+  background: #efe3ff;
+}
+
+.icono-nube {
+  width: 78px;
+  height: 78px;
+  color: #b18ae8;
+  margin-bottom: 18px;
+}
+
+.zona-carga strong {
+  font-size: 18px;
+}
+
+.zona-carga p {
+  margin: 8px 0 22px;
+  color: #685480;
+}
+
+.zona-carga small {
+  color: #6e5b86;
+  margin-top: 18px;
+}
+
+.boton {
+  font: inherit;
+  font-weight: 600;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 19px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.boton svg {
+  width: 21px;
+  height: 21px;
+}
+
+.boton-principal,
+.boton-guardar {
+  background: var(--morado);
+  color: white;
+}
+
+.boton-guardar {
+  width: 100%;
+  margin-top: 17px;
+}
+
+.boton-guardar:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.boton-secundario {
+  background: #f4eafb;
+  color: #613591;
+  border: 1px solid #e5d3f5;
+}
+
+.boton-eliminar {
+  background: #fff2f5;
+  color: #a12a5c;
+  border: 1px solid #f4c9d9;
+}
+
+.archivo-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.cabecera-tarjeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.cabecera-tarjeta h2 {
+  margin: 0;
+}
+
+.estado-ok {
+  background: #e6f8e9;
+  color: #137734;
+  border-radius: 10px;
+  padding: 8px 11px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.marco-preview {
+  position: relative;
+  height: 342px;
+  width: 100%;
+  background: #f5f2f8;
+  border: 1px solid #eee6f5;
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.marco-preview img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.preview-vacio {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 12px;
+  color: #80699a;
+  padding: 20px;
+}
+
+.preview-vacio svg {
+  width: 76px;
+  height: 76px;
+  color: #b89cd8;
+}
+
+.preview-vacio strong {
+  color: #57406f;
+}
+
+.acciones-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.acciones-preview form {
+  margin: 0;
+}
+
+.consejos {
+  background: var(--rosa);
+  border-color: #fae5f1;
+}
+
+.titulo-consejos {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.titulo-consejos svg {
+  width: 38px;
+  height: 38px;
+  color: var(--morado);
+  flex-shrink: 0;
+}
+
+.titulo-consejos h2 {
+  margin: 0;
+}
+
+.consejos ul {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+}
+
+.consejos li {
+  padding: 0 0 0 24px;
+  position: relative;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+.consejos li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 9px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #9664d6;
+}
+
+.mensaje {
+  background: #e9f8ec;
+  color: #187837;
+  border: 1px solid #beeaca;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.aviso-pendiente {
+  color: #69518a;
+  font-size: 14px;
+  text-align: center;
+  margin: 14px 0 0;
+}
+
+.error-cliente,
+.error-servidor {
+  color: #ae2146;
+  font-size: 14px;
+  margin: 12px 0;
+}
+
+.error-servidor ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.oculto {
+  display: none !important;
+}
+
+@media (max-width: 830px) {
+  .barra {
+    padding: 12px 16px;
+    height: auto;
+  }
+
+  .marca {
+    gap: 10px;
+  }
+
+  .marca strong {
+    font-size: 21px;
+  }
+
+  .marca-icono {
+    width: 45px;
+    height: 45px;
+  }
+
+  .marca-icono svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nombre-pagina,
+  .separador,
+  .iconos-cabecera {
+    display: none;
+  }
+
+  .contenedor {
+    padding: 24px 16px;
+  }
+
+  .introduccion {
+    gap: 14px;
+  }
+
+  .icono-camiseta {
+    flex-basis: 53px;
+    height: 53px;
+  }
+
+  .icono-camiseta svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .introduccion p {
+    font-size: 15px;
+  }
+
+  .cuadricula {
+    grid-template-columns: 1fr;
+  }
+
+  .tarjeta {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 21px;
+  }
+}

@@ -1,0 +1,184 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi armario | StyleMatch AI</title>
+  <link rel="stylesheet" href="{% static 'armario/estilos.css' %}">
+  <script src="{% static 'armario/app.js' %}" defer></script>
+</head>
+<body>
+  <header class="barra">
+    <div class="marca">
+      <div class="marca-icono">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 6a3 3 0 1 1 6 0c0 1.4-1 2.1-3 3v2l9 7c1 .8.4 2-1 2H4c-1.4 0-2-1.2-1-2l9-7"/>
+        </svg>
+      </div>
+      <strong>StyleMatch <span>AI</span></strong>
+      <span class="separador"></span>
+      <span class="nombre-pagina">Mi armario</span>
+    </div>
+    <div class="iconos-cabecera">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>
+      </svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="7" r="4"/>
+        <path d="M4 22v-2a8 8 0 0 1 16 0v2"/>
+      </svg>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <section class="introduccion">
+      <div class="icono-camiseta">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m16 4 3 2 4 1-2 6-4-2v9H7v-9l-4 2-2-6 4-1 3-2a4 4 0 0 0 8 0Z"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Mi armario</h1>
+        <p>Sube fotografías de tus prendas para crear tu armario digital y, más adelante, obtener recomendaciones de looks con StyleMatch AI.</p>
+      </div>
+    </section>
+
+    {% if messages %}
+      {% for message in messages %}
+        <p class="mensaje" role="status">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+
+    <div class="cuadricula">
+
+      <!-- CARGAR FOTOGRAFÍA -->
+      <section class="tarjeta tarjeta-carga">
+        <h2>Sube una foto de tu prenda</h2>
+
+        <form action="{% url 'mi_armario' %}"
+              method="post"
+              enctype="multipart/form-data"
+              id="form-subida">
+          {% csrf_token %}
+
+          <div class="zona-carga" id="zona-carga">
+            <svg class="icono-nube" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 16.5a4.5 4.5 0 0 0-1.5-8.5A6 6 0 0 0 7 6.5 4.5 4.5 0 0 0 6.5 16H9"/>
+              <path d="M12 21v-9m-4 4 4-4 4 4"/>
+            </svg>
+
+            <strong>Arrastra y suelta una imagen aquí</strong>
+            <p>o haz clic en el botón para seleccionarla</p>
+
+            <label class="boton boton-principal" for="id_imagen">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="m21 15-5-5L5 21"/>
+              </svg>
+              Seleccionar imagen
+            </label>
+
+            <input
+              id="id_imagen"
+              name="imagen"
+              type="file"
+              accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+              class="archivo-oculto"
+            >
+
+            <small>Formatos soportados: JPG · JPEG · PNG (máx. 10 MB)</small>
+          </div>
+
+          {% if formulario.imagen.errors %}
+            <div class="error-servidor" role="alert">
+              {{ formulario.imagen.errors }}
+            </div>
+          {% endif %}
+
+          <p id="error-cliente"
+             class="error-cliente oculto"
+             role="alert"></p>
+
+          <button type="submit"
+                  class="boton boton-guardar"
+                  id="boton-guardar"
+                  disabled>
+            Guardar fotografía
+          </button>
+        </form>
+      </section>
+
+      <!-- VISTA PREVIA -->
+      <section class="tarjeta tarjeta-preview">
+        <div class="cabecera-tarjeta">
+          <h2>Vista previa</h2>
+          <span id="estado-guardado"
+                class="estado-ok {% if not foto %}oculto{% endif %}">
+            ✓ Imagen guardada correctamente
+          </span>
+        </div>
+
+        <div class="marco-preview">
+          <img id="imagen-preview"
+               {% if foto %}src="{{ foto.imagen.url }}"{% endif %}
+               alt="Fotografía seleccionada de una prenda"
+               class="{% if not foto %}oculto{% endif %}">
+
+          <div id="preview-vacio"
+               class="preview-vacio {% if foto %}oculto{% endif %}">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <path d="m21 15-5-5L5 21"/>
+            </svg>
+            <strong>Aún no hay una fotografía</strong>
+            <span>Selecciona una imagen para verla aquí.</span>
+          </div>
+        </div>
+
+        <p id="aviso-pendiente"
+           class="aviso-pendiente oculto">
+          Vista previa temporal. Pulsa «Guardar fotografía» para conservarla.
+        </p>
+
+        <div class="acciones-preview">
+          <button type="button"
+                  id="boton-cambiar"
+                  class="boton boton-secundario {% if not foto %}oculto{% endif %}">
+            Cambiar imagen
+          </button>
+
+          <form action="{% url 'eliminar_foto' %}"
+                method="post"
+                id="form-eliminar"
+                class="{% if not foto %}oculto{% endif %}">
+            {% csrf_token %}
+            <button type="submit" class="boton boton-eliminar">
+              Quitar imagen
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- CONSEJOS -->
+      <section class="tarjeta consejos">
+        <div class="titulo-consejos">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 18h6m-5 3h4M8 15c-1.9-1.2-3-3.2-3-5.5a7 7 0 1 1 14 0c0 2.3-1.1 4.3-3 5.5-.7.6-1 1.2-1 2H9c0-.8-.3-1.4-1-2Z"/>
+          </svg>
+          <h2>Consejos para la fotografía</h2>
+        </div>
+
+        <ul>
+          <li><b>Usa buena iluminación:</b> preferiblemente luz natural y sin sombras fuertes.</li>
+          <li><b>Elige un fondo liso:</b> como una pared blanca o clara.</li>
+          <li><b>Muestra la prenda completa:</b> que se vea toda la prenda, sin cortes.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
