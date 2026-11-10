@@ -16,7 +16,6 @@ class Command(BaseCommand):
         processor = CLIPProcessor.from_pretrained(model_id)
         model.eval()
 
-        # Obtener todas las fotos registradas en la base de datos de Django
         prendas = FotoArmario.objects.all()
         
         if not prendas.exists():
@@ -28,7 +27,6 @@ class Command(BaseCommand):
         procesadas = 0
         for prenda in prendas:
             try:
-                # Obtener la ruta absoluta del archivo de imagen en el servidor
                 image_path = prenda.imagen.path
                 
                 if not os.path.exists(image_path):
@@ -42,11 +40,9 @@ class Command(BaseCommand):
                     outputs = model.get_image_features(pixel_values=inputs["pixel_values"])
                     image_features = outputs.pooler_output if hasattr(outputs, "pooler_output") else outputs
                 
-                # Normalizar el vector
                 image_features = image_features / image_features.norm(p=2, dim=-1, keepdim=True)
                 vector_np = image_features.cpu().numpy().flatten().tolist()
                 
-                # Guardar el vector como texto/JSON en el modelo de Django
                 prenda.vector_caracteristicas = str(vector_np)
                 prenda.save()
                 
