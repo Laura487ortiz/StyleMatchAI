@@ -50,4 +50,3 @@ En desarrollo. Primera fase de implementación de StyleMatch AI.
 
 - [Tablero en Notion (unicamente para el equipo de trabajo)](https://app.notion.com/p/dd6c1deb16af4af0b68c611898c135fa?v=42056935f0f54eee80f9b86972098bec)
 - [Dataset de imágenes autorizadas](https://drive.google.com/file/d/1U0bP4_AB2dBTK0ec_VlCiezHnoi5-RdF/view?usp=sharing)
-- 
